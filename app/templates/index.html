@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="hidden" id="cover"><img id="preview" /></section>
+<section class="hidden" id="label-detected"></section>
+
+<section id="presentation">
+    <div ><img src="icons/logo_bicolor.svg" alt="Logo" class="logo-img"></div>
+    <h1 >Object Detector</h1>
+</section>
+<section class="hidden" id='error-message'> </section>
+
+
+<section id="photo-button">
+    <!-- Please put the API Url in the form action-->
+    <form id="infos-from-image" action="/api/model/prediction" enctype="multipart/form-data" method="post">
+        <p>
+
+            <label id="user-msg" for="image-source">
+                <input id="image-source" name="img" type="file" hidden required>
+                Take a Photo
+            </label>
+        </p>
+    </form>
+</section>
+
+
+
+
+
+{% endblock %}

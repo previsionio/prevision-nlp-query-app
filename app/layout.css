@@ -1,0 +1,207 @@
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 12px;
+}
+
+section {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+#links {
+  display: flex;
+  flex-direction: row;
+}
+
+#links > nav {
+  flex : 1;
+}
+
+.top-me {
+  /* tip Use filter to color svg */
+  /*https://codepen.io/sosuke/pen/Pjoqqp*/
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
+    brightness(118%) contrast(119%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  width: 50%;
+  margin: auto;
+}
+
+/* Special css for button link */
+.links-button {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: stretch;
+  gap: 5px;
+}
+
+.big-button {
+  font-size: 1em;
+  padding: 0.7em 0.2em;
+  text-align: center;
+  flex: 1;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 40px;
+  font-weight: 100;
+}
+
+#container {
+  height: calc(100vh - calc(100vh - 100%));
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+header {
+  flex: 1;
+}
+
+.vertical-panelling {
+  flex: 18;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: start;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: start;
+}
+
+#sub-footer {
+  text-align: end;
+  margin-right: 5px;
+  height: 2em;
+}
+
+#sub-footer > img {
+  height: 1em;
+}
+
+footer {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+  justify-content: flex-end;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+}
+
+.hidden {
+  display: none !important; /*hidden is hidden*/
+}
+
+#cover {
+  margin: auto;
+}
+
+#cover {
+  order: 1;
+  flex: 2;
+}
+
+#presentation {
+  order: 2;
+  flex: 3;
+  /* This section is both a flexbox and a flex container */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  text-align: center;
+}
+
+#label-detected {
+  order: 3;
+  flex: 1;
+  text-align: center;
+}
+
+.big-label {
+  font-size: 20px;
+}
+
+.big-value {
+  font-size: 16px;
+}
+
+.mini-advice {
+  line-height: 1.4em;
+  margin-top: 1.2em;
+  font-size: 12px;
+}
+
+#pred-result {
+  order: 4;
+  float: 1;
+}
+
+#photo-button {
+  order: 5;
+  height: 40%;
+}
+
+#error-message {
+  order: 6;
+  flex: 1;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  aside {
+    display: none;
+  }
+
+  main {
+    width: 80%;
+    margin: auto;
+    height: 100%;
+  }
+  header {
+    display: none;
+  }
+}
+
+@media screen and (min-device-width: 667px) and (max-device-width: 2600px) {
+  main {
+    flex: 2;
+    height: 80vh;
+  }
+
+
+  footer {
+    display: none;
+  }
+  aside {
+    flex: 3;
+  }
+}

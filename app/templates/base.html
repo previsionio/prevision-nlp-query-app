@@ -1,0 +1,232 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Object Detector, by Prevision.io" />
+    <meta name="author" content="Prevision.io" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Object Detector By Prevision - {{ page }} - v0.1.16</title>
+    <link rel="stylesheet" type="text/css" href="reset.css" />
+    <link rel="stylesheet" type="text/css" href="layout.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="tabs.css" />
+    <link rel="stylesheet" type="text/css" href="prism.css" />
+    <link rel="icon" type="image/svg+xml" href="icons/prevision.svg">
+</head>
+
+
+<body>
+    <div id="container">
+
+
+        <header class="header">
+            <h1>Prevision.io</h1>
+        </header>
+
+        <div class="vertical-panelling">
+            <main>
+                {% block content %}{% endblock %}
+            </main>
+            <aside>
+                <section id="about-model-text">
+                    <h3>A title</h3>
+                    <p>Some explanation about the project</p>
+                    <p><em>An emphasized line</em></p>
+                    <p>Some other explanations</p>
+                </section>
+
+                <section>
+                    <h3>How does it work?</h3>
+                </section>
+                <section>
+                    <p><em>This is a very simple app!</em></p>
+                    <p>Step 1. Have your iOS or Android phone ready</p>
+                    <p>Step 2. Go to {{appurl}}</p>
+                    <p>Step 3. Click Take photo </p>
+                    <p>Step 4. Test the results </p>
+                    <p><em>or call the rest API with the code snippets below.</em></p>
+                </section>
+                <section>
+                    <div class="tabset">
+                        <!-- Tab 1 -->
+                        <input type="radio" name="tabset" id="tab1" aria-controls="javascript" checked>
+                        <label for="tab1">Javascript</label>
+                        <!-- Tab 2 -->
+
+                        <input type="radio" name="tabset" id="tab2" aria-controls="node-axios">
+                        <label for="tab2">Node ( Axios )</label>
+
+
+                        <input type="radio" name="tabset" id="tab3" aria-controls="python">
+                        <label for="tab3">Python</label>
+                        <!-- Tab 3 -->
+                        <input type="radio" name="tabset" id="tab4" aria-controls="curl">
+                        <label for="tab4">Curl</label>
+
+                        <input type="radio" name="tabset" id="tab5" aria-controls="swift">
+                        <label for="tab5">Swift</label>
+
+                        <div class="tab-panels">
+                            <section id="javascript" class="tab-panel">
+                                <pre><code class="language-js">
+var formdata = new FormData();
+formdata.append("img", fileInput.files[0], "test_img.jpg");
+
+var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+};
+
+fetch("{{appurl}}/api/model/prediction", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+                                </code></pre>
+                            </section>
+
+
+                            <section id="node-axios" class="tab-panel">
+                                <pre><code class="language-js">
+var axios = require('axios');
+var FormData = require('form-data');
+var fs = require('fs');
+var data = new FormData();
+data.append('img', fs.createReadStream('./test_img.jpg'));
+
+var config = {
+    method: 'post',
+    url: '{{appurl}}/api/model/prediction',
+    headers: { 
+    ...data.getHeaders()
+    },
+    data : data
+};
+
+axios(config)
+.then(function (response) {
+    console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+    console.log(error);
+});
+                        </code></pre>
+                            </section>
+
+
+                            <section id="python" class="tab-panel">
+                                <pre><code class="language-py">
+import requests
+url = "{{appurl}}/api/model/prediction"
+payload={}
+files=[
+    ('img',('test_img.jpg',open('./test_img.jpg','rb'),'image/jpeg'))
+]
+headers = {}
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+print(response.text)
+
+                                </code></pre>
+                            </section>
+
+                            <section id="curl" class="tab-panel">
+                                <pre><code class="language-bash">
+curl --location --request POST '{{appurl}}/api/model/prediction' \
+--form 'img=@"./test_img.jpg"'
+                                </code></pre>
+                            </section>
+
+                            <section id="swift" class="tab-panel">
+                                <pre><code class="language-swift">
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
+var semaphore = DispatchSemaphore (value: 0)
+
+let parameters = [
+    [
+    "key": "img",
+    "src": "./test_img.jpg",
+    "type": "file"
+    ]] as [[String : Any]]
+
+let boundary = "Boundary-\(UUID().uuidString)"
+var body = ""
+var error: Error? = nil
+for param in parameters {
+    if param["disabled"] == nil {
+    let paramName = param["key"]!
+    body += "--\(boundary)\r\n"
+    body += "Content-Disposition:form-data; name=\"\(paramName)\""
+    if param["contentType"] != nil {
+        body += "\r\nContent-Type: \(param["contentType"] as! String)"
+    }
+    let paramType = param["type"] as! String
+    if paramType == "text" {
+        let paramValue = param["value"] as! String
+        body += "\r\n\r\n\(paramValue)\r\n"
+    } else {
+        let paramSrc = param["src"] as! String
+        let fileData = try NSData(contentsOfFile:paramSrc, options:[]) as Data
+        let fileContent = String(data: fileData, encoding: .utf8)!
+        body += "; filename=\"\(paramSrc)\"\r\n"
+        + "Content-Type: \"content-type header\"\r\n\r\n\(fileContent)\r\n"
+    }
+    }
+}
+body += "--\(boundary)--\r\n";
+let postData = body.data(using: .utf8)
+
+var request = URLRequest(url: URL(string: "{{appurl}}/api/model/prediction")!,timeoutInterval: Double.infinity)
+request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+request.httpMethod = "POST"
+request.httpBody = postData
+
+let task = URLSession.shared.dataTask(with: request) { data, response, error in 
+    guard let data = data else {
+    print(String(describing: error))
+    semaphore.signal()
+    return
+    }
+    print(String(data: data, encoding: .utf8)!)
+    semaphore.signal()
+}
+
+task.resume()
+semaphore.wait()
+                                </code></pre>
+                            </section>
+                        </div>
+
+                    </div>
+                </section>
+
+            </aside>
+        </div>
+
+
+
+
+        <footer>
+            <div id="sub-footer">Powered by <img src="icons/logo_bicolor.svg" alt="logo_bicolor.svg"></div>
+            <div id="links">
+                <nav>
+                    <a class="top-me {% if ishome %} active {% endif %}" href="/"><img src="icons/home.svg" alt="Logo" class="logo-img"><span>Home</span></a>
+                </nav>
+                <nav>
+                    <a class="top-me {% if isabout %} active {% endif %}" href="/about"><img src="icons/question-circle.svg" alt="Logo" class="logo-img"><span>About</span></a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript " src="main.js "></script>
+    <script src="prism.js"></script>
+</body>
+
+</html>
