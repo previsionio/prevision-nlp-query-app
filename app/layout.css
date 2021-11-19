@@ -113,20 +113,21 @@ form {
   justify-content: center;
   align-items: center;
   align-content: stretch;
+  gap :1em;
 }
 
+label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+}
 .hidden {
   display: none !important; /*hidden is hidden*/
 }
 
-#cover {
-  margin: auto;
-}
 
-#cover {
-  order: 1;
-  flex: 2;
-}
 
 #presentation {
   order: 2;
@@ -141,34 +142,15 @@ form {
   text-align: center;
 }
 
-#label-detected {
-  order: 3;
-  flex: 1;
-  text-align: center;
-}
 
-.big-label {
-  font-size: 20px;
-}
 
-.big-value {
-  font-size: 16px;
-}
 
-.mini-advice {
-  line-height: 1.4em;
-  margin-top: 1.2em;
-  font-size: 12px;
-}
-
-#pred-result {
-  order: 4;
-  float: 1;
-}
-
-#photo-button {
-  order: 5;
-  height: 40%;
+dd {
+ height: 7em;
+ margin: 10px;
+ border: 1px var(--lighter-grey) solid;
+ padding: 3px;
+ overflow: auto;
 }
 
 #error-message {
@@ -193,7 +175,7 @@ form {
 
 @media screen and (min-device-width: 667px) and (max-device-width: 2600px) {
   main {
-    flex: 2;
+    flex: 4;
     height: 80vh;
   }
 

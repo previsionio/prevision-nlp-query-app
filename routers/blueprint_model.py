@@ -30,8 +30,8 @@ def make_prediction_on_file(**kwargs):
     logger.debug(kwargs)
 
     # Get the files from form
-    query="mal au pied"
-    topk=6
+    query=request.form.get("query","")
+    topk=int(request.form.get("topk",5))
 
     res = model.predict_query(query,topk)
 

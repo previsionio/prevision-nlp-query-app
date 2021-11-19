@@ -11,8 +11,8 @@
 
   --color-danger: #fd4134;
   --color-warning: #fd7c34;
-  --color-confident: #97c44e;
-  --color-perfect: #4ba5d8;
+  --color-confident: #e6d330;
+  --color-perfect: #4bd85e;
   --button-size: 175px;
 
   --primary-font: "Roboto";
@@ -126,44 +126,26 @@ footer a {
   text-decoration: none; /* no underline */
 }
 
-/* Specific Element : Square around image */
-.big-label {
-  color: var(--prevision-secondary);
-  font-family: var(--hero-font) , sans-serif;
-}
-
-.big-value {
-  color: var(--prevision-tertiary);
-  font-family: var(--hero-font) , sans-serif;
-}
-
-.bounding-box {
-  border: 2px solid var(--prevision-secondary);
-}
 
 
 .sure {
-  border-width: 2px;
-  border-style: solid;
-  border-color: var(--color-perfect);
+
+  color: var(--color-perfect);
   background:rgba(75, 165, 216, 0.2);
 }
 .quite-sure {
-  border-width: 2px;
-  border-style: solid;
-  border-color: var(--color-confident);
+
+  color: var(--color-confident);
   background:rgba(75, 165, 216, 0.2);
 }
 .not-quite-sure {
-  border-width: 2px;
-  border-style: solid;
-  border-color: var(--color-warning);
+
+  color: var(--color-warning);
   background:rgba(75, 165, 216, 0.2);
 }
 .not-sure {
-  border-width: 2px;
-  border-style: solid;
-  border-color: var(--color-danger);
+
+  color: var(--color-danger);
   background:rgba(75, 165, 216, 0.2);
 }
 /** --- End style from preds --**/
@@ -187,20 +169,31 @@ footer a {
   font-size: 32px;
 }
 
-#user-msg {
-  border: 3px solid var(--prevision-secondary);
+label  {
   background-color: var(--darkest-grey);
-  font-family:var(--hero-font) , sans-serif;
-  font-weight: bolder;
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  line-height: var(--button-size);
-  border-radius: 50%;
-  height: var(--button-size);
-  width: var(--button-size);
-  cursor: pointer;
+  font-family:var(--primary-font) , sans-serif;
 }
+
+
+.query-reminder {
+  font-size: 28px;
+  font-family: var(--hero-font);
+  color: var(--prevision-secondary);
+  margin-bottom: 14px;
+}
+dl {
+  counter-reset: documentCount 0;
+}
+
+dt::before {
+  counter-increment: documentCount;
+  content: counter(documentCount) " ";
+}
+
+dt {
+  color: var(--prevision-tertiary);
+}
+
 
 /* Code */
 pre code {

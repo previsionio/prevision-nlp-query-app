@@ -1,8 +1,9 @@
 import logging
 
+from werkzeug.wrappers import Response
+
 logger = logging.getLogger('Cheezam')
-logging.basicConfig(format='[ %(name)s API ] %(asctime)s %(message)s',
-                    level=logging.INFO)
+logging.basicConfig(format='[ %(name)s API ] %(asctime)s %(message)s',level=logging.INFO)
 
 import json
 
@@ -16,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 client_id = os.getenv('client_id')
 client_secret = os.getenv('client_secret')
-predict_url = os.getenv('model_url')
+model_url = os.getenv('model_url')
 
 client = BackendApplicationClient(client_id=client_id)
 
@@ -24,6 +25,15 @@ client = BackendApplicationClient(client_id=client_id)
 def transformres(res):
     logging.info(">" * 66)
     logging.info("transformres")
+    logging.info(res)
+    if not "response" in res :
+        logging.error("no response in res")
+        return []
+
+    if not "predictions" in res["response"] :
+        logging.error("No predictions in response")
+        return []
+
     predictions = res["response"]["predictions"]
 
     preds = {}
@@ -39,7 +49,7 @@ def transformres(res):
                 preds[fieldName].append(predictions[pred])
 
     normedPreds = [{
-        "content": el[:80],
+        "content": el,
         "similarity": preds["similarity"][idx]
     } for (idx, el) in enumerate(preds["content"])]
 
@@ -51,7 +61,7 @@ def send(query, top_k=5):
     logging.info(">" * 66)
     logging.info("send")
     try:
-        predict_url = "https://santor-edition.cloud.prevision.io/predict"
+        predict_url = f"{model_url}/predict"
 
         payload = json.dumps({
             "query": query,
@@ -59,6 +69,7 @@ def send(query, top_k=5):
         })
         headers = {'Content-Type': 'application/json'}
 
+        logging.info(payload)
         oauth = OAuth2Session(client=client)
         oauth.fetch_token(
             token_url=
@@ -68,6 +79,7 @@ def send(query, top_k=5):
 
         prediction = oauth.post(predict_url, headers=headers, data=payload)
         data = prediction.json()
+        logging.info(data)
         res = transformres(data)
         logging.info("<" * 66)
         return res

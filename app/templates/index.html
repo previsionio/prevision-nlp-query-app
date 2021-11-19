@@ -1,28 +1,33 @@
 {% extends "base.html" %} {% block content %}
 
-<section class="hidden" id="cover"><img id="preview" /></section>
-<section class="hidden" id="label-detected"></section>
 
 <section id="presentation">
-    <div ><img src="icons/logo_bicolor.svg" alt="Logo" class="logo-img"></div>
-    <h1 >Object Detector</h1>
+    <div><img src="icons/logo_bicolor.svg" alt="Logo" class="logo-img"></div>
+    <h1>Documents Research</h1>
 </section>
 <section class="hidden" id='error-message'> </section>
 
 
-<section id="photo-button">
+<section id="query-section">
     <!-- Please put the API Url in the form action-->
-    <form id="infos-from-image" action="/api/model/prediction" enctype="multipart/form-data" method="post">
-        <p>
+    <form id="query-form" action="/api/model/prediction" enctype="application/x-www-form-urlencoded" method="post">
 
-            <label id="user-msg" for="image-source">
-                <input id="image-source" name="img" type="file" hidden required>
-                Take a Photo
-            </label>
-        </p>
+        <label for="query-source">
+                <textarea id="query-source" name="query" rows = "5" cols="33"  required></textarea> 
+        </label>
+
+        <label id="top-k-label" for="topk">
+            <span>Nb de documents en retour</span>
+            <input type="number" id="top-k-input" name="topk" min="1" max="15" step="1">
+
+        </label>
+
+        <input type="submit" id="submit-button" value="Envoyer le formulaire">
+
     </form>
 </section>
 
+<section class="hidden" id="label-detected"></section>
 
 
 

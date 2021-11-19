@@ -29,24 +29,7 @@
                 {% block content %}{% endblock %}
             </main>
             <aside>
-                <section id="about-model-text">
-                    <h3>A title</h3>
-                    <p>Some explanation about the project</p>
-                    <p><em>An emphasized line</em></p>
-                    <p>Some other explanations</p>
-                </section>
-
-                <section>
-                    <h3>How does it work?</h3>
-                </section>
-                <section>
-                    <p><em>This is a very simple app!</em></p>
-                    <p>Step 1. Have your iOS or Android phone ready</p>
-                    <p>Step 2. Go to {{appurl}}</p>
-                    <p>Step 3. Click Take photo </p>
-                    <p>Step 4. Test the results </p>
-                    <p><em>or call the rest API with the code snippets below.</em></p>
-                </section>
+              
                 <section>
                     <div class="tabset">
                         <!-- Tab 1 -->
@@ -71,7 +54,8 @@
                             <section id="javascript" class="tab-panel">
                                 <pre><code class="language-js">
 var formdata = new FormData();
-formdata.append("img", fileInput.files[0], "test_img.jpg");
+formdata.append("query", "douleur au bas du dos");
+formdata.append("topk", "4");
 
 var requestOptions = {
     method: 'POST',
@@ -91,9 +75,9 @@ fetch("{{appurl}}/api/model/prediction", requestOptions)
                                 <pre><code class="language-js">
 var axios = require('axios');
 var FormData = require('form-data');
-var fs = require('fs');
 var data = new FormData();
-data.append('img', fs.createReadStream('./test_img.jpg'));
+data.append('query', 'douleur au bas du dos');
+data.append('topk', '4');
 
 var config = {
     method: 'post',
@@ -118,14 +102,16 @@ axios(config)
                             <section id="python" class="tab-panel">
                                 <pre><code class="language-py">
 import requests
+
 url = "{{appurl}}/api/model/prediction"
-payload={}
-files=[
-    ('img',('test_img.jpg',open('./test_img.jpg','rb'),'image/jpeg'))
-]
-headers = {}
-response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+payload={'query': 'douleur au bas du dos',
+'topk': '4'}
+
+response = requests.request("POST", url,  data=payload)
+
 print(response.text)
+
 
                                 </code></pre>
                             </section>
@@ -133,7 +119,8 @@ print(response.text)
                             <section id="curl" class="tab-panel">
                                 <pre><code class="language-bash">
 curl --location --request POST '{{appurl}}/api/model/prediction' \
---form 'img=@"./test_img.jpg"'
+--form 'query="douleur au bas du dos"' \
+--form 'topk="4"'
                                 </code></pre>
                             </section>
 
@@ -148,9 +135,14 @@ var semaphore = DispatchSemaphore (value: 0)
 
 let parameters = [
     [
-    "key": "img",
-    "src": "./test_img.jpg",
-    "type": "file"
+    "key": "query",
+    "value": "douleur au bas du dos",
+    "type": "text"
+    ],
+    [
+    "key": "topk",
+    "value": "4",
+    "type": "text"
     ]] as [[String : Any]]
 
 let boundary = "Boundary-\(UUID().uuidString)"
@@ -198,6 +190,7 @@ let task = URLSession.shared.dataTask(with: request) { data, response, error in
 
 task.resume()
 semaphore.wait()
+                                    
                                 </code></pre>
                             </section>
                         </div>
