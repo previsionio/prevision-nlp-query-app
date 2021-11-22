@@ -78,7 +78,9 @@ def send(query, top_k=5):
             client_secret=client_secret)
 
         prediction = oauth.post(predict_url, headers=headers, data=payload)
-        data = prediction.json()
+        res = prediction
+        print(res)
+        data=res.json()
         logging.info(data)
         res = transformres(data)
         logging.info("<" * 66)

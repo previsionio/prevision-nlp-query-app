@@ -29,18 +29,16 @@ Then create a `.env` file from the `env.example` and fill it with the informatio
 client_id=<YOUR CLIENT ID>>
 client_secret=<YOUR CLIENT_SECRET>
 model_url=<YOUR_MODEL_URL>
-appurl=<YOU_APP_URL>
 ```
 
 ![tokens](doc-img/model_token.png)
 ![model url](doc-img/model-url.png)
 
-( _You can fill the appurl env var to generate doc_ )
 
 Then launch server using gunicorn
 
 ```
-gunicorn --reload --bind 0.0.0.0:8080 --timeout 120  --limit-request-line 0   --access-logfile - run:app
+gunicorn --reload --bind 127.0.0.1:8080 --timeout 120  --limit-request-line 0   --access-logfile - run:app
 ```
 
 Go to http://localhost:8080/ and check everything is fine. You should see a webapp.  You can test the API with the curl command (  using any image you want ):

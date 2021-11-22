@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-appurl = os.getenv('appurl')
+appurl = "https://myapp.com"
 
 # load modules
 from routers.blueprint_model import blueprint_model

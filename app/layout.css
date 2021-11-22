@@ -88,6 +88,7 @@ main {
   justify-content: flex-start;
   align-items: stretch;
   align-content: start;
+  padding: 0 3%;
 }
 
 #sub-footer {
